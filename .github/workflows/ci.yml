@@ -30,4 +30,6 @@ jobs:
         with:
           folder: target/site/allure-maven-plugin/
           branch: gh-pages
-          token: ${{ secrets.GITHUB_TOKEN }}
+          token: ${{ secrets.DEPLOY_KEY }}
+          git-config-name: "GitHub Actions"
+          git-config-email: "actions@github.com"
