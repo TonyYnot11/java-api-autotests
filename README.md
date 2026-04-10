@@ -18,6 +18,9 @@
 - Maven
 - GitHub Actions (CI/CD)
 
+## Allure отчеты доступны по ссылке
+ https://tonyynot11.github.io/java-api-autotests/
+
 ## Запуск тестов локально
 ```bash
 mvn clean test
