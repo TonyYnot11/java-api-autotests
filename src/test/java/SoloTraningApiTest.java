@@ -130,3 +130,4 @@ public class SoloTraningApiTest {
         System.out.println("✅ Тест пройден.");
     }
 }
+//test commit
