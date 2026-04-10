@@ -1,9 +1,7 @@
-name: CI - Run API Tests
+name: CI - Run API Tests with Allure
 
 on:
   push:
-    branches: [ main ]
-  pull_request:
     branches: [ main ]
 
 jobs:
@@ -21,3 +19,15 @@ jobs:
 
       - name: Run tests with Maven
         run: mvn clean test
+
+      - name: Generate Allure Report
+        run: mvn allure:report
+        if: always()
+
+      - name: Deploy to GitHub Pages
+        uses: JamesIves/github-pages-deploy-action@v4
+        if: always()
+        with:
+          folder: target/site/allure-maven-plugin/
+          branch: gh-pages
+          token: ${{ secrets.GITHUB_TOKEN }}
