@@ -10,6 +10,8 @@ import java.util.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertNotNull;
 import static io.restassured.module.jsv.JsonSchemaValidator.matchesJsonSchemaInClasspath;
+import io.qameta.allure.Description;
+import io.qameta.allure.Story;
 
 @RunWith(Parameterized.class)
 public class SoloTraningApiTest {
@@ -45,7 +47,8 @@ public class SoloTraningApiTest {
         this.expectedEmail = expectedEmail;
         this.expectedCity = expectedCity;
     }
-
+    @Story("Проверка JSON схемы")
+    @Description("Проверка схемы")
     @Test
     //проверка схемы JSON
     public void testUserShema(){
@@ -55,7 +58,8 @@ public class SoloTraningApiTest {
                 .assertThat()
                 .body(matchesJsonSchemaInClasspath("user-schema.json"));
     }
-
+    @Story("Пользователи API")
+    @Description("Проверка данных пользователя по ID")
     @Test
     public void taskOne() {
         Response response = RestAssured.get(baseURL + "/users/" + userId);
@@ -71,7 +75,8 @@ public class SoloTraningApiTest {
         assertEquals(expectedCity, response.jsonPath().getString("address.city"));//город
         System.out.println("✅ Тест пройден.");
     }
-
+    @Story("Пользователи API")
+    @Description("Проверка данных пользователя по ID негативный кейс")
     @Test
     public void taskThree() {
         Response response = RestAssured.get(baseURL + "/users/999");
@@ -80,7 +85,8 @@ public class SoloTraningApiTest {
         System.out.println(response.jsonPath().getMap("").isEmpty() ? "Тело ответа пустое" : "Есть тело ответа");// проверка тела ответа
         System.out.println("✅ Тест пройден.");
     }
-
+    @Story("Пост запрос API")
+    @Description("Пост запрос")
     @Test
     public void taskFour() {
         String rsBody = "{ \"title\": \"Мой первый пост\", \"body\": \"Текст поста\" , \"userId\": 1 }";
@@ -96,7 +102,8 @@ public class SoloTraningApiTest {
         assertEquals("Текст поста", response.jsonPath().getString("body"));
         System.out.println("✅ Тест пройден.");
     }
-
+    @Story("Пут запрос API")
+    @Description("Пут запрос")
     @Test
     public void taskFive() {
         String rsBody = "{ \"id\": 1 , \"title\": \"Обновленный заголовок\", \"body\": \"Обновленный текст поста\" , \"userId\": 1 }";
@@ -110,7 +117,8 @@ public class SoloTraningApiTest {
         assertEquals("Обновленный текст поста", response.jsonPath().getString("body"));
         System.out.println("✅ Тест пройден.");
     }
-
+    @Story("Запрос удаления API")
+    @Description("запрос удаления")
     @Test
     public void taskSix() {
 
