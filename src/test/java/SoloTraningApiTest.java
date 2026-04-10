@@ -20,7 +20,7 @@ public class SoloTraningApiTest {
     private String expectedName , expectedCity , expectedEmail;
 
 
-    // предустановка(переменная) для запросов
+    // предустановка(переменная) для запросов.
     @Before
     public void setUp() {
         requestSpec = RestAssured
