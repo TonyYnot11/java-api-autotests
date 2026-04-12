@@ -64,7 +64,7 @@ public class SauceDemoTest {
     public void addToCartTest(){
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        cartPage.addRandomToCart();
+        productsPage.addToCart("Sauce Labs Backpack");
         assertEquals("1" ,cartPage.getCartItemCount());
         System.out.println("✅ Тест пройден. ");
     }
