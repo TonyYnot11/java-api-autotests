@@ -2,8 +2,12 @@
 
 [![Run API Tests](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml/badge.svg)](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml)
 
+***
+
 ## О проекте
 Учимся писать автотесты для REST API (JSONPlaceholder) на Java с использованием RestAssured, JUnit 4 и GitHub Actions.
+
+***
 
 ## Что умеют тесты
 - API тесты ресурса [jsonplaceholder](https://jsonplaceholder.typicode.com)
@@ -18,7 +22,8 @@
     * Проверка авторизации пользователя
     * Проверка авторизации заблокированного пользователя
     * Проверка добавления товара в корзину
-  
+
+***
 
 ## Технологии
 - Java 17
@@ -27,8 +32,12 @@
 - Maven
 - GitHub Actions (CI/CD)
 
+***
+
 ## Allure отчеты доступны по ссылке
  ###  [Отчет последнего прогона](https://tonyynot11.github.io/java-api-autotests/)
+
+***
 
 ## Запуск тестов локально
 ```bash
