@@ -20,4 +20,6 @@ public class ProductsPage {
     public String getTitle() {
         return wait.until(ExpectedConditions.visibilityOfElementLocated(title)).getText();
     }
+
+    public String getCurrentUrl(){ return driver.getCurrentUrl();}
 }
