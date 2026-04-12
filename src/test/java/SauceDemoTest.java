@@ -6,6 +6,9 @@ import org.junit.jupiter.api.*;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
+
+import java.util.List;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
@@ -61,12 +64,41 @@ public class SauceDemoTest {
     public void addToCartTest(){
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-        cartPage.addBackpackToCart();
+        cartPage.addRandomToCart();
         assertEquals("1" ,cartPage.getCartItemCount());
         System.out.println("✅ Тест пройден. ");
-
-
     }
+
+    @Story("UI Test")
+    @Description("Filter from low to high price test")
+    @Test
+    public void loHiFilter(){
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.selectSortOption("lohi");
+        System.out.println("✅ Тест пройден.");
+        List<Double> prices = productsPage.getProductPrices();
+
+        for (int i = 0; i < prices.size() - 1; i++) {
+            assertTrue(prices.get(i) <= prices.get(i + 1), "Цены не отсортированы: " + prices.get(i) + " > " + prices.get(i + 1));
+        }
+    }
+    @Story("UI Test")
+    @Description("adding 2 positions to cart")
+    @Test
+    public void addTwoProductsToCartTest() {
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+
+        productsPage.addToCart("Sauce Labs Backpack");
+        productsPage.addToCart("Sauce Labs Bike Light");
+
+        String itemCount = cartPage.getCartItemCount();
+        assertEquals("2", itemCount);
+    }
+
+
+
     @AfterEach
     public void tearDown() {
         if (driver != null) {

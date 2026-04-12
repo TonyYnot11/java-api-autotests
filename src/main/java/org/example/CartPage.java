@@ -6,15 +6,21 @@ import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.Random;
 
 public class CartPage {
+
 
     private WebDriver driver;
     private WebDriverWait wait;
 
+
 // Локаторы
-    private By addToCart = By.id("add-to-cart-sauce-labs-backpack");
-    private By cartBage = By.className("shopping_cart_badge");
+    private By cartBadge = By.className("shopping_cart_badge");
+    private By cartLink = By.className("shopping_cart_link");
+    private By filter = By.className("product_sort_container");
 
     public CartPage(WebDriver driver) {
         this.driver = driver;
@@ -22,12 +28,18 @@ public class CartPage {
     }
 
 
-    public void addBackpackToCart(){
-       wait.until(ExpectedConditions.visibilityOfElementLocated(addToCart)).click();
+    public void addRandomToCart(){
+       wait.until(ExpectedConditions.visibilityOfElementLocated(cartLink)).click();
     }
 
     public String getCartItemCount(){
+       return driver.findElement(cartBadge).getText();
+    }
 
-       return driver.findElement(cartBage).getText();
+    public void addToCartByProductName(String productName){
+
+
+
+
     }
 }
