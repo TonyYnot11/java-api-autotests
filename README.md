@@ -5,7 +5,7 @@
 ***
 
 ## О проекте
-Учимся писать автотесты для REST API (JSONPlaceholder) на Java с использованием RestAssured, JUnit 4 и GitHub Actions.
+Учимся писать автотесты для REST API + UI  на Java.
 
 ***
 
