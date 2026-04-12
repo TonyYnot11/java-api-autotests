@@ -66,7 +66,7 @@ public class SauceDemoTest {
         loginPage.login("standard_user", "secret_sauce");
         productsPage.addToCart("Sauce Labs Backpack");
         assertEquals("1" ,cartPage.getCartItemCount());
-        System.out.println("✅ Тест пройден. ");
+        System.out.println("✅ Тест пройден.");
     }
 
     @Story("UI Test")
