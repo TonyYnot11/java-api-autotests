@@ -7,7 +7,7 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
 
-import java.util.List;
+import java.util.*;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
@@ -17,6 +17,7 @@ public class SauceDemoTest {
     private LoginPage loginPage;
     private ProductsPage productsPage;
     private CartPage cartPage;
+    private CheckOutPage checkOutPage;
 
     @BeforeEach
     public void setUp() {
@@ -76,25 +77,82 @@ public class SauceDemoTest {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
         productsPage.selectSortOption("lohi");
-        System.out.println("✅ Тест пройден.");
         List<Double> prices = productsPage.getProductPrices();
-
         for (int i = 0; i < prices.size() - 1; i++) {
             assertTrue(prices.get(i) <= prices.get(i + 1), "Цены не отсортированы: " + prices.get(i) + " > " + prices.get(i + 1));
         }
+        System.out.println("✅ Тест пройден.");
     }
+
     @Story("UI Test")
     @Description("adding 2 positions to cart")
     @Test
     public void addTwoProductsToCartTest() {
         loginPage.open();
         loginPage.login("standard_user", "secret_sauce");
-
         productsPage.addToCart("Sauce Labs Backpack");
         productsPage.addToCart("Sauce Labs Bike Light");
-
         String itemCount = cartPage.getCartItemCount();
         assertEquals("2", itemCount);
+        System.out.println("✅ Тест пройден.");
+    }
+
+    @Story("UI Test")
+    @Description("Cart items approving")
+    @Test
+    public void cartListApprove(){
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addToCart("Sauce Labs Backpack");
+        productsPage.addToCart("Sauce Labs Bike Light");
+        String itemCount = cartPage.getCartItemCount();
+        assertEquals("2", itemCount);
+        cartPage.openCart();
+        List<String> actualList = cartPage.getCartItemNames();
+        List<String> expectedList = Arrays.asList("Sauce Labs Backpack" ,"Sauce Labs Bike Light" ) ;
+        assertEquals(actualList , expectedList);
+        System.out.println("✅ Тест пройден.");
+    }
+
+    @Story("UI Test")
+    @Description("delete item from cart")
+    @Test
+
+    public void deleteFromCart(){
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addToCart("Sauce Labs Backpack");
+        productsPage.addToCart("Sauce Labs Bike Light");
+        cartPage.openCart();
+        cartPage.removeFromCartByProductName("Sauce Labs Backpack");
+        String itemCount = cartPage.getCartItemCount();
+        assertEquals("1", itemCount);
+        List<String> actualList = cartPage.getCartItemNames();
+        List<String> expectedList = Arrays.asList("Sauce Labs Bike Light" ) ;
+        assertEquals(actualList , expectedList);
+        System.out.println("✅ Тест пройден.");
+    }
+
+
+    @Story("UI Test")
+    @Description("Success screen")
+    @Test
+
+    public void successScreen(){
+        loginPage.open();
+        loginPage.login("standard_user", "secret_sauce");
+        productsPage.addToCart("Sauce Labs Bike Light");
+        cartPage.openCart();
+        checkOutPage.clickCheckOut();
+        checkOutPage.enterFirstName("Tony");
+        checkOutPage.enterLastName("Ynot");
+        checkOutPage.enterPostalCode("348738");
+        checkOutPage.clickContinue();
+        checkOutPage.clickFinish();
+        List<String> actualText = checkOutPage.getCompleteMessage();
+        List<String> expectedText = Arrays.asList("Your order has been dispatched, and will arrive just as fast as the pony can get there!" , "Thank you for your order!");
+        assertEquals(actualText,expectedText);
+        System.out.println("✅ Тест пройден.");
     }
 
 

@@ -7,8 +7,8 @@ import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
 import java.time.Duration;
 import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Random;
+import java.util.List;
+
 
 public class CartPage {
 
@@ -27,9 +27,8 @@ public class CartPage {
         this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
     }
 
-
-    public void addRandomToCart(){
-       wait.until(ExpectedConditions.visibilityOfElementLocated(cartLink)).click();
+    public void openCart(){
+        wait.until(ExpectedConditions.visibilityOfElementLocated(cartLink)).click();
     }
 
     public String getCartItemCount(){
@@ -37,9 +36,22 @@ public class CartPage {
     }
 
     public void addToCartByProductName(String productName){
-
-
-
-
+        String id = "add-to-cart-" + productName.toLowerCase().replace(" ", "-");
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(id))).click();
     }
+
+    public List<String> getCartItemNames(){
+        List<String> itemNames = new ArrayList<>();
+        List<WebElement> nameElements = driver.findElements(By.className("inventory_item_name"));
+        for (WebElement element : nameElements) {
+            itemNames.add(element.getText());
+        }
+        return itemNames;
+    }
+
+    public void removeFromCartByProductName(String productName){
+        String id = "remove-" + productName.toLowerCase().replace(" ", "-");
+        wait.until(ExpectedConditions.elementToBeClickable(By.id(id))).click();
+    }
+
 }
