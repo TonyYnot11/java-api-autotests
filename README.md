@@ -1,44 +1,36 @@
-# Java API AutoTests
+# Java API + UI AutoTests
 
-[![Run API Tests](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml/badge.svg)](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml)
-
-***
+[![CI](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml/badge.svg)](https://github.com/TonyYnot11/java-api-autotests/actions/workflows/ci.yml)
+[![Allure Report](https://img.shields.io/badge/Allure%20Report-latest-brightgreen)](https://tonyynot11.github.io/java-api-autotests/)
 
 ## О проекте
-Учимся писать автотесты для REST API + UI  на Java.
 
-***
+Учебный проект с автотестами для:
+- **REST API** (JSONPlaceholder)
+- **Web UI** (SauceDemo)
 
-## Что умеют тесты
-- API тесты ресурса [jsonplaceholder](https://jsonplaceholder.typicode.com)
-   * GET, POST, PUT, DELETE запросы
-   * Параметризованные тесты (проверка разных пользователей)
-   * Проверка схемы JSON
-   * Негативные сценарии (404)
+## Что проверяется
 
-***
+### API
+- GET, POST, PUT, DELETE запросы
+- Параметризованные тесты
+- Проверка JSON Schema
+- Негативные сценарии (404)
 
-- UI тесты ресурса [saucedemo](https://www.saucedemo.com/)
-    * Проверка авторизации пользователя
-    * Проверка авторизации заблокированного пользователя
-    * Проверка добавления товара в корзину
-
-***
+### UI
+- Авторизация (успешная и заблокированный пользователь)
+- Добавление товаров в корзину
+- Оформление заказа
 
 ## Технологии
-- Java 17
-- RestAssured 5.5.0
-- JUnit 4
-- Maven
-- GitHub Actions (CI/CD)
 
-***
+- Java 17, Maven, JUnit 4/5
+- RestAssured, Selenium WebDriver
+- Allure Report, GitHub Actions
 
-## Allure отчеты доступны по ссылке
- ###  [Отчет последнего прогона](https://tonyynot11.github.io/java-api-autotests/)
+## Локальный запуск
 
-***
-
-## Запуск тестов локально
 ```bash
-mvn clean test
+mvn clean test     # запуск тестов
+----------------------------------
+mvn allure:serve   # открыть отчёт
