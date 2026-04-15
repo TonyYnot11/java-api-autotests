@@ -6,8 +6,8 @@
 ## О проекте
 
 Учебный проект с автотестами для:
-- **REST API** (JSONPlaceholder)
-- **Web UI** (SauceDemo)
+- **REST API** ([JSONPlaceholder](https://jsonplaceholder.typicode.com))
+- **Web UI** ([SauceDemo](https://www.saucedemo.com/))
 
 ## Что проверяется
 
@@ -27,6 +27,9 @@
 - Java 17, Maven, JUnit 4/5
 - RestAssured, Selenium WebDriver
 - Allure Report, GitHub Actions
+
+## Allure отчеты доступны по ссылке или через бейдж в шапке
+###  [Отчет последнего прогона](https://tonyynot11.github.io/java-api-autotests/)
 
 ## Локальный запуск
 
