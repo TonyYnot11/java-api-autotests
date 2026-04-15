@@ -14,8 +14,6 @@ public class CheckOutPage {
     private WebDriverWait wait;
 
 
-
-
     //Locators
 
     private By firstNameField = By.id("first-name");
@@ -29,10 +27,15 @@ public class CheckOutPage {
     private By successMessageText = By.className("complete-text");
     private By succesHeader = By.className("complete-header");
 
-//    public CheckOutPage(WebDriver driver) {
-//        this.driver = driver;
-//        this.wait = new WebDriverWait(driver, Duration.ofSeconds(10));
-//    }
+    public CheckOutPage(WebDriver driver) {
+        this.driver = driver;
+        this.wait = new WebDriverWait(driver, Duration.ofSeconds(15));
+    }
+
+    private By header = By.className("app_logo");
+    public void clickOnHeader() {
+        driver.findElement(header).click();
+    }
 
     public void enterFirstName(String firstName){
         wait.until(ExpectedConditions.visibilityOfElementLocated(firstNameField));
@@ -44,17 +47,15 @@ public class CheckOutPage {
 
     public void clickCheckOut(){wait.until(ExpectedConditions.visibilityOfElementLocated(checkOutButton)).click();}
 
-    public void clickContinue(){wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton)).click();}
+    public void clickContinue(){wait.until(ExpectedConditions.visibilityOfElementLocated(continueButton)).submit();}
 
     public void clickFinish(){wait.until(ExpectedConditions.visibilityOfElementLocated(finishButton)).click();}
 
     public List<String> getCompleteMessage(){
-        List<String> texts = new ArrayList<>();
-        wait.until(ExpectedConditions.visibilityOfElementLocated(successMessageText));
-        texts.add(successMessageText.toString());
-        wait.until(ExpectedConditions.visibilityOfElementLocated(succesHeader));
-        texts.add(succesHeader.toString());
-        return texts;
+            List<String> texts = new ArrayList<>();
+            texts.add(wait.until(ExpectedConditions.visibilityOfElementLocated(succesHeader)).getText());
+            texts.add(wait.until(ExpectedConditions.visibilityOfElementLocated(successMessageText)).getText());
+            return texts;
     }
 
 }

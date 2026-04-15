@@ -31,6 +31,7 @@ public class SauceDemoTest {
         loginPage = new LoginPage(driver);
         productsPage = new ProductsPage(driver);
         cartPage = new CartPage(driver);
+        checkOutPage = new CheckOutPage(driver);
     }
     @Story("UI Test")
     @Description("Succses User Login")
@@ -148,13 +149,17 @@ public class SauceDemoTest {
         checkOutPage.enterLastName("Ynot");
         checkOutPage.enterPostalCode("348738");
         checkOutPage.clickContinue();
+        System.out.println(driver.getCurrentUrl());
         checkOutPage.clickFinish();
+        System.out.println("clickFinish введён");
         List<String> actualText = checkOutPage.getCompleteMessage();
-        List<String> expectedText = Arrays.asList("Your order has been dispatched, and will arrive just as fast as the pony can get there!" , "Thank you for your order!");
-        assertEquals(actualText,expectedText);
+        List<String> expectedText = Arrays.asList(
+                "Thank you for your order!",
+                "Your order has been dispatched, and will arrive just as fast as the pony can get there!"
+        );
+        assertEquals(expectedText, actualText);
         System.out.println("✅ Тест пройден.");
     }
-
 
 
     @AfterEach
