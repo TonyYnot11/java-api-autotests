@@ -50,4 +50,5 @@ public class LoginPage {
         enterPassword(password);
         clickLogin();
     }
+
 }

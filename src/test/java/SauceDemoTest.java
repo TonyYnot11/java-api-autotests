@@ -3,6 +3,8 @@ import io.qameta.allure.Story;
 import io.qameta.allure.Description;
 import org.example.*;
 import org.junit.jupiter.api.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.CsvSource;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.chrome.ChromeDriver;
 import org.openqa.selenium.chrome.ChromeOptions;
@@ -33,6 +35,27 @@ public class SauceDemoTest {
         cartPage = new CartPage(driver);
         checkOutPage = new CheckOutPage(driver);
     }
+
+    @Story("UI Test")
+    @Description("Different User Login")
+    @ParameterizedTest
+    @CsvSource({
+            "standard_user, secret_sauce, success",
+            "locked_out_user, secret_sauce, error",
+            "problem_user, secret_sauce, success",
+            "performance_glitch_user, secret_sauce, success"
+    })
+    public void loginTest(String username, String password, String expectedResult) {
+        loginPage.open();
+        loginPage.login(username , password);
+        if (expectedResult.equals("success")) {
+            assertTrue(driver.getCurrentUrl().contains("inventory.html"));
+        } else {
+            assertEquals("Epic sadface: Sorry, this user has been locked out.", loginPage.getErrorMessage());
+        }
+        System.out.println("✅ Тест пройден. ");
+    }
+
     @Story("UI Test")
     @Description("Succses User Login")
     @Test
@@ -43,11 +66,10 @@ public class SauceDemoTest {
         String actualTitle = productsPage.getTitle();
         assertEquals("Products", actualTitle, "Заголовок не совпадает");
         String actualUrl = productsPage.getCurrentUrl();
-        assertTrue(actualUrl.contains("inventory.html"));
+
         System.out.println("✅ Тест пройден. ");
-
-
     }
+
     @Story("UI Test")
     @Description("Locked Out User Login")
     @Test
@@ -59,6 +81,7 @@ public class SauceDemoTest {
         assertTrue(error.contains("Sorry, this user has been locked out"));
         System.out.println("✅ Тест пройден. ");
     }
+
 
     @Story("UI Test")
     @Description("Add to cart + cart badge count")
